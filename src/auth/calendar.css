@@ -1,0 +1,38 @@
+body {
+    background-color: whitesmoke;
+    height: 100vh;
+}
+
+Frame {
+  width: 400px;
+  border: 1px solid lightgrey;
+  box-shadow: 2px 2px 2px #eee;
+}
+
+Header {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 10px 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #f5f6fa;
+}
+
+Button {
+  cursor: pointer;
+}
+
+Body {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+Day {
+  width: 14.2%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
