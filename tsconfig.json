@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "src/auth/Calendar.tsx"  ]
 }

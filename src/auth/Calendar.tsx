@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
-import './calendar.css';
+import './Calendar.css';
 
 const Frame = styled.div`
   width: 400px;
@@ -81,7 +81,7 @@ class Calendar extends React.Component<calendarProps, calendarState> {
     constructor(props: calendarProps) {
         super(props);
         this.state = {
-            days: ``,
+            days: this.isLeapYear((new Date()).getFullYear()) ? DAYS_LEAP : DAYS,
             daysLeap: ``,
             daysOfTheWeek: ``,
             months: ``,
@@ -107,6 +107,7 @@ class Calendar extends React.Component<calendarProps, calendarState> {
 
 
     componentDidMount() {
+        console.log(this.state)
         this.setDate(this.state.date)
     }
 
@@ -125,7 +126,7 @@ class Calendar extends React.Component<calendarProps, calendarState> {
         return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
     }
 
-    days = this.isLeapYear(this.state.date.getFullYear()) ? DAYS_LEAP : DAYS;
+    // days = this.isLeapYear(this.state.date.getFullYear()) ? DAYS_LEAP : DAYS;
 
     render() {
         return (
