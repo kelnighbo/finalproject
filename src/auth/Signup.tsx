@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './signup.css'; 
+import APIURL from '../helpers/environment';
 
 interface signupProps {
     updateToken: (token: string) => void
@@ -28,7 +29,7 @@ class SignUp extends React.Component<signupProps,signupState>{
             this.SignUp()
         }
         SignUp = () => {
-            fetch('http://localhost:3000/user/signup', {
+            fetch(`${APIURL}/user/signup`, {
                 method: 'POST', 
                 body: JSON.stringify({
                     firstName: this.state.firstName,

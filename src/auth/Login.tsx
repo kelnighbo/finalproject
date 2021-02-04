@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {Switch, BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import './login.css'; 
 import '../App';
+import APIURL from '../helpers/environment';
 
 interface loginProps {
     updateToken: (token: string) => void
@@ -22,11 +22,11 @@ class Login extends React.Component<loginProps,loginState>{
         }}
         private handleSubmit = (e : React.FormEvent) => {
             e.preventDefault();
-            this.setState(this.state)
+            this.Login()
         }
 
         Login = () => {
-            fetch('http://localhost:3000/user/login', {
+            fetch(`${APIURL}/user/login`, {
                 method: 'POST', 
                 body: JSON.stringify({
                     email: this.state.email,
@@ -67,7 +67,7 @@ class Login extends React.Component<loginProps,loginState>{
                     }}/>
                  </div>              
                  <div className='login'>
-                    <button>Login!</button>
+                    <button type='submit'>Login!</button>
                     <div style={{display:'flex', flexDirection: 'row'}}></div>
                  </div>
             </form>

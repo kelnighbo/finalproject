@@ -9,7 +9,7 @@ p, div {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: whitesmoke;
+    /* background-color: whitesmoke; */
   }
   
   .form-wrapper {
@@ -72,7 +72,7 @@ p, div {
     color: #fefefe;
   }
   button:hover {
-    background-color: rgb(7, 139, 247);
+    background-color:  rgb(83, 129, 127);
     color: #fefefe;
   }
    

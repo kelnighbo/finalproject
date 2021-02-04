@@ -1,55 +1,67 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
-import SignUp from './auth/Signup';
-import Login from './auth/Login';
-import {Switch, BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+import { Switch, BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import Auth from './auth/auth';
 import Appointment from './auth/appointment';
 import Calendar from './auth/Calendar';
+import Navbar from './components/Navbar';
+import List from './components/List';
+import Account from './components/Account'
+
 // import styled, { css } from 'styled-components';
 
 
-class App extends React.Component<{},{token:string|null}> {
+class App extends React.Component<{}, { token: string | null }> {
    constructor(props: any) {
       super(props)
-      this.state={
+      this.state = {
          token: null
 
       }
-      this.getToken= this.getToken.bind(this)
-      this.updateToken= this.updateToken.bind(this)
+      this.getToken = this.getToken.bind(this)
+      this.updateToken = this.updateToken.bind(this)
    }
-   getToken(){
+   getToken() {
       return this.state.token
    }
-   updateToken(userToken:string) {
-      this.setState({token: userToken})
+   updateToken(userToken: string) {
+      this.setState({ token: userToken })
    }
    deleteToken() {
-      this.setState({token:null})
+      this.setState({ token: null })
    }
+   
    render() {
       const loggedIn = this.state.token
-      let display; 
+      let display;
       if (loggedIn) {
-         display = (<Appointment/>)
-         } 
-         else {display =  <Auth updateToken={this.updateToken}/>}
-   return (
+         display =
+            (<div>
+               <div className="wrapper">
+                  <h1>BE AWESOME TODAY</h1>
+                  <Calendar updateToken={this.updateToken} />
+                  <Route path='/list'><List token={this.state.token} /></Route>
+               </div>
+               <Route path='/appointment'><Appointment token={this.state.token} /></Route>
+            </div>
+            )
+      }
+      else { display = <Auth updateToken={this.updateToken} /> }
+      return (
 
-     <div>
-        <div>
-      <h1>Calendar</h1>
-      <Calendar updateToken={this.updateToken}/>
-      </div>
-        <Router>
-           <Switch> 
-              {display}
-           </Switch>
-        </Router>
-   </div>
-   );
-}
+         <div>
+            <Router>
+               <div>
+                  <Navbar />
+                  <Route path='/account'><Account updateToken={this.updateToken} /></Route>
+               </div>
+               <Switch>
+                  {display}
+               </Switch>
+            </Router>
+         </div>
+      );
+   }
 }
 // const Container = styled.div`
 //   height: 100%;

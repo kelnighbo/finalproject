@@ -1,4 +1,12 @@
 import React, { Component } from 'react';
+import List from '../components/List';
+import { Link, Redirect } from 'react-router-dom';
+import './appointment.css';
+import APIURL from '../helpers/environment';
+
+interface MyProps {
+    token: string | null
+}
 
 interface MyState {
     type: string;
@@ -6,9 +14,10 @@ interface MyState {
     time: string;
     place: string;
     note: string;
+    redirect: string | null
 }
 
-class Login extends React.Component<{},MyState>{
+class Appointment extends React.Component<MyProps,MyState>{
     constructor(props: any) {
         super(props);
 
@@ -17,20 +26,39 @@ class Login extends React.Component<{},MyState>{
             date: ``,
             time: ``,
             place: ``,
-            note: ``
+            note: ``,
+            redirect: null
         }}
+
         private handleSubmit = (e : React.FormEvent) => {
             e.preventDefault();
-            this.setState(this.state)
-        }
+            fetch(`${APIURL}/appointments/create`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    type: this.state.type,
+                    date: this.state.date,
+                    time: this.state.time,
+                    place: this.state.place,
+                    note: this.state.note
+                }),
+                headers: new Headers ({
+                    Authorization: this.props.token as string, 
+                    "content-type": "application/json"
+                })
 
-        componentDidMount() {
-            fetch('http://localhost:3000/create/appointments')
-            .then(response => response.json())
-            .then(data => this.setState({ }));
-        }
+        }) .then(() => this.setState({redirect: "/list"}))
+    }
+
+        // componentDidMount() {
+        //     fetch('http://localhost:3000/create/appointments')
+        //     .then(response => response.json())
+        //     .then(data => this.setState({ }));
+        // }
 
     render() {
+        if(this.state.redirect){
+            return <Redirect to={this.state.redirect}/>
+        }
        return (
          <div className='wrapper'>
            <div className='form-wrapper'>
@@ -91,4 +119,4 @@ class Login extends React.Component<{},MyState>{
    }
   }
     
-export default Login;
+export default Appointment;

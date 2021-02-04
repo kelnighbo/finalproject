@@ -1,8 +1,8 @@
 import React from 'react';
 import Login from './Login';
-import SignUp from './Signup';
 import Signup from './Signup';
 import './login.css';
+import './signup.css';
 
 interface LoginCheck {
     login: boolean

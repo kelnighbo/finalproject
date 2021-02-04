@@ -1,9 +1,11 @@
 body {
     height: 100vh;
+    /* background-color: whitesmoke; */
+    background-image: url('../to-do-assets/background.jpg');
   }
   
-  .App {
+  .app {
     font-family: sans-serif;
-    text-align: center;
+    align-items: center;
   }
   

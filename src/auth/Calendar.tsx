@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import './Calendar.css';
 
 const Frame = styled.div`
   width: 400px;
-  border: 1px solid lightgrey;
+  border: black;
   box-shadow: 2px 2px 2px #eee;
 `;
 
@@ -15,7 +14,7 @@ const Header = styled.div`
   padding: 10px 10px 5px 10px;
   display: flex;
   justify-content: space-between;
-  background-color: #f5f6fa;
+  background-color: whitesmoke;
 `;
 
 const Button = styled.div`
@@ -26,6 +25,7 @@ const Body = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  background-color: whitesmoke; 
 `;
 
 const Day = styled.div`
@@ -35,7 +35,6 @@ const Day = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  
 
   ${props =>
     // @ts-ignore
@@ -68,7 +67,6 @@ interface calendarState {
     month: any;
     year: any;
     startDay: any;
-
 }
 
 const DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -76,24 +74,24 @@ const DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 const DAYS_OF_THE_WEEK = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
-
 class Calendar extends React.Component<calendarProps, calendarState> {
     constructor(props: calendarProps) {
         super(props);
         this.state = {
-            days: this.isLeapYear((new Date()).getFullYear()) ? DAYS_LEAP : DAYS,
+            days: DAYS,
             daysLeap: ``,
             daysOfTheWeek: ``,
             months: ``,
-            today: ``,
+            today: new Date(),
             date: new Date(),
             dateNumber: 0,
-            day: ``,
-            month: ``,
-            year: ``,
+            day: '',
+            month: (new Date()).getMonth(),
+            year: (new Date()).getFullYear(),
             startDay: ``
         }
     }
+
     //   const DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     //   const DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     //   const DAYS_OF_THE_WEEK = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
@@ -105,17 +103,19 @@ class Calendar extends React.Component<calendarProps, calendarState> {
     //   const [year, setYear] = useState(date.getFullYear());
     //   const [startDay, setStartDay] = useState(getStartDayOfMonth(date));
 
-
     componentDidMount() {
         console.log(this.state)
         this.setDate(this.state.date)
     }
 
     setDate(d:Date) {
-        this.setState({ dateNumber: d.getDate() })
-        this.setState({ month: d.getMonth() })
-        this.setState({ year: d.getFullYear().toString() })
-        this.setState({ startDay: this.getStartDayOfMonth(d) })
+        this.setState({
+          dateNumber: d.getDate(),
+          month: d.getMonth(),
+          year: d.getFullYear().toString(),
+          startDay: this.getStartDayOfMonth(d),
+          days: this.isLeapYear(d.getFullYear()) ? DAYS_LEAP : DAYS
+        })
     }
 
     getStartDayOfMonth(d:Date) {
@@ -132,11 +132,11 @@ class Calendar extends React.Component<calendarProps, calendarState> {
         return (
             <Frame>
                 <Header>
-                    <Button onClick={() => this.setState ({date: new Date(this.state.year, this.state.month - 1, this.state.dateNumber)})}>Prev</Button>
+                   <Button onClick={() => this.setDate (new Date(this.state.year, this.state.month - 1, this.state.dateNumber))}>Prev</Button>
                     <div>
                         {MONTHS[this.state.month]} {this.state.year}
                     </div>
-                    <Button onClick={() => this.setState({date: new Date(this.state.year, this.state.month + 1, this.state.dateNumber)})}>Next</Button>
+                    <Button onClick={() => this.setDate(new Date(this.state.year, this.state.month + 1, this.state.dateNumber))}>Next</Button>
                 </Header>
                 <Body>
                     {DAYS_OF_THE_WEEK.map(d => (
@@ -165,5 +165,4 @@ class Calendar extends React.Component<calendarProps, calendarState> {
         );
     }
 }
-
 export default Calendar; 
