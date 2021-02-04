@@ -20,7 +20,7 @@ class Login extends React.Component<loginProps,loginState>{
             email: ``,
             password: ``
         }}
-        private handleSubmit = (e : React.FormEvent) => {
+         handleSubmit = (e : React.FormEvent) => {
             e.preventDefault();
             this.Login()
         }
