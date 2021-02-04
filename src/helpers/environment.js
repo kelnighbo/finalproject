@@ -6,7 +6,7 @@ switch (window.location.hostname) {
         APIURL = 'http://localhost:3000'
         break
     case 'https://kelnighbo-frontapp.herokuapp.com':
-        APIURL = 'https:kelnighbo-app.herokuapp.com'
+        APIURL = 'https://kelnighbo-app.herokuapp.com'
 
 }
 
